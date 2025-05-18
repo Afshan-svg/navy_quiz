@@ -13,7 +13,7 @@ const CategorySelection = ({ onCategorySelect }) => {
   const fetchDivisions = async () => {
     setLoading(true);
     try {
-      const response = await axios.get('http://localhost:5000/api/divisions');
+      const response = await axios.get('https://navy-quiz.onrender.com/api/divisions');
       setDivisions(response.data);
     } catch (error) {
       message.error('Failed to fetch categories');

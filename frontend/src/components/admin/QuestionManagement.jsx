@@ -15,7 +15,7 @@ const QuestionManagement = () => {
   const fetchDivisions = async () => {
     setLoading(true);
     try {
-      const response = await axios.get('http://localhost:5000/api/divisions');
+      const response = await axios.get('https://navy-quiz.onrender.com/api/divisions');
       setDivisions(response.data);
     } catch (error) {
       message.error('Failed to fetch divisions');
@@ -27,7 +27,7 @@ const QuestionManagement = () => {
   const fetchQuestions = async () => {
     setLoading(true);
     try {
-      const response = await axios.get('http://localhost:5000/api/questions');
+      const response = await axios.get('https://navy-quiz.onrender.com/api/questions');
       setQuestions(response.data);
     } catch (error) {
       message.error('Failed to fetch questions');
@@ -43,7 +43,7 @@ const QuestionManagement = () => {
         options: values.options.split(',').map((opt) => opt.trim()),
       };
 
-      const response = await axios.post('http://localhost:5000/api/questions', payload);
+      const response = await axios.post('https://navy-quiz.onrender.com/api/questions', payload);
       message.success('Question created successfully');
       form.resetFields();
       fetchQuestions();

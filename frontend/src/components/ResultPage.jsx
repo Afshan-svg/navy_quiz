@@ -15,7 +15,7 @@ const ResultPage = ({ score, total, userAnswers, onRestart, category, questions 
         setIsDownloading(true);
         try {
             const response = await axios.post(
-                'http://localhost:5000/api/generate-certificate',
+                'https://navy-quiz.onrender.com/api/generate-certificate',
                 {
                     userName,
                     category,

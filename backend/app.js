@@ -13,7 +13,7 @@ app.use(cors());
 app.use(express.json());
 
 mongoose
-  .connect('mongodb://localhost:27017/indian_navy', {
+  .connect('mongodb+srv://afshankhan:NEj0EFBxGL7Ey38F@navy.kdbuevf.mongodb.net/?retryWrites=true&w=majority&appName=navy', {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })

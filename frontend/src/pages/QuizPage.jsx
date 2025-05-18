@@ -20,8 +20,8 @@ const QuizPage = () => {
   const fetchQuestions = async (divisionId) => {
     setLoading(true);
     try {
-      const response = await axios.get(`http://localhost:5000/api/questions?division=${divisionId}`);
-      const divisionResponse = await axios.get(`http://localhost:5000/api/divisions`);
+      const response = await axios.get(`https://navy-quiz.onrender.com/api/questions?division=${divisionId}`);
+      const divisionResponse = await axios.get(`https://navy-quiz.onrender.com/api/divisions`);
       const division = divisionResponse.data.find((d) => d._id === divisionId);
       setQuestions(response.data);
       setDivisionName(division?.name || 'Unknown');
@@ -64,7 +64,7 @@ const QuizPage = () => {
         return;
       }
 
-      const response = await axios.post('http://localhost:5000/api/update-score', {
+      const response = await axios.post('https://navy-quiz.onrender.com/api/update-score', {
         name: user.name,
         score,
       });
