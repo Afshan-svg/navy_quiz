@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { message, Typography, Layout, Card, theme } from 'antd';
+import { Modal } from 'antd'; // Import Modal separately if needed
 import CreateUserForm from '../CreateUserForm';
 import UserTable from '../UserTable';
 
@@ -31,6 +32,16 @@ const UserManagement = () => {
       fetchUsers();
     } catch (error) {
       message.error(error.response?.data?.message || 'Failed to create user');
+    }
+  };
+
+  const handleDeleteUser = async (userId) => {
+    try {
+      const response = await axios.delete(`https://navy-quiz.onrender.com/api/users/${userId}`);
+      message.success(response.data.message || 'User deleted successfully');
+      fetchUsers();
+    } catch (error) {
+      message.error(error.response?.data?.message || 'Failed to delete user');
     }
   };
 
@@ -69,7 +80,7 @@ const UserManagement = () => {
           title={<span style={{ fontFamily: 'Hind, sans-serif' }}>📋 Registered Users</span>}
           headStyle={{ backgroundColor: '#bbdefb', borderBottom: '1px solid #90caf9' }}
         >
-          <UserTable users={users} loading={loading} />
+          <UserTable users={users} loading={loading} onDelete={handleDeleteUser} />
         </Card>
       </Content>
     </Layout>

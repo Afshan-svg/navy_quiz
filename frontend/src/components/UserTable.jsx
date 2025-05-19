@@ -1,7 +1,22 @@
 import React from 'react';
-import { Table } from 'antd';
+import { Table, Button } from 'antd';
+import { Modal } from 'antd';
 
-const UserTable = ({ users, loading }) => {
+const UserTable = ({ users, loading, onDelete }) => {
+    const showDeleteConfirm = (userId, userName) => {
+        Modal.confirm({
+            title: 'Are you sure you want to delete this user?',
+            content: `This will permanently delete ${userName}. This action cannot be undone.`,
+            okText: 'Delete',
+            okType: 'danger',
+            cancelText: 'Cancel',
+            onOk() {
+                onDelete(userId);
+            },
+        });
+    };
+    
+
     const columns = [
         {
             title: 'Name',
@@ -21,7 +36,15 @@ const UserTable = ({ users, loading }) => {
         {
             title: 'Action',
             key: 'action',
-            render: () => <a>Delete</a>, // Placeholder for future delete functionality
+            render: (_, record) => (
+                <Button 
+                    type="link" 
+                    danger
+                    onClick={() => showDeleteConfirm(record._id, record.name)}
+                >
+                    Delete
+                </Button>
+            ),
         },
     ];
 

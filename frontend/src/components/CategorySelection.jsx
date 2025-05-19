@@ -80,15 +80,15 @@ const CategorySelection = ({ onCategorySelect }) => {
                 style={{
                   borderRadius: 12,
                   boxShadow:
-                    '0 4px 12px rgba(0, 0, 0, 0.1), 0 6px 20px rgba(255, 193, 7, 0.3)', // saffron-ish subtle shadow
+                    '0 4px 12px rgba(0, 0, 0, 0.1), 0 6px 20px rgba(255, 193, 7, 0.3)',
                   cursor: 'pointer',
                   transition: 'transform 0.2s ease-in-out',
-                  backgroundColor: '#fffde7', // subtle saffron/cream
+                  backgroundColor: '#fffde7',
                   textAlign: 'center',
-                  padding: '30px 20px',
+                  padding: '20px',
                   userSelect: 'none',
                 }}
-                onMouseEnter={(e) => {
+                onMouseEnter={( bespre2e) => {
                   e.currentTarget.style.transform = 'scale(1.05)';
                   e.currentTarget.style.boxShadow =
                     '0 8px 24px rgba(0, 0, 0, 0.15), 0 10px 28px rgba(255, 193, 7, 0.5)';
@@ -99,6 +99,36 @@ const CategorySelection = ({ onCategorySelect }) => {
                     '0 4px 12px rgba(0, 0, 0, 0.1), 0 6px 20px rgba(255, 193, 7, 0.3)';
                 }}
               >
+                {division.image ? (
+                  <img
+                    src={division.image}
+                    alt={division.name}
+                    style={{
+                      width: '100%',
+                      height: '150px',
+                      objectFit: 'cover',
+                      borderRadius: '8px',
+                      marginBottom: '16px',
+                    }}
+                  />
+                ) : (
+                  <div
+                    style={{
+                      width: '100%',
+                      height: '150px',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      backgroundColor: '#f5f5f5',
+                      borderRadius: '8px',
+                      marginBottom: '16px',
+                      color: '#888',
+                      fontFamily: 'Hind, sans-serif',
+                    }}
+                  >
+                    No Image
+                  </div>
+                )}
                 <Title
                   level={3}
                   style={{ fontFamily: 'Hind, sans-serif', color: '#ef6c00', marginBottom: 0 }}

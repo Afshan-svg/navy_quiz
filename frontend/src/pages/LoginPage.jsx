@@ -9,7 +9,10 @@ const LoginPage = () => {
           "url('https://images.pexels.com/photos/3699921/pexels-photo-3699921.jpeg?auto=compress&cs=tinysrgb&w=1600')",
       }}
     >
-      <div className="bg-white bg-opacity-90 rounded-lg shadow-lg p-8">
+      <div className="bg-white bg-opacity-90 rounded-lg shadow-lg p-8 text-center">
+        <h1 className="text-3xl font-bold mb-6 text-blue-900 font-sans">
+          Vayu Sagar Gyan
+        </h1>
         <LoginForm />
       </div>
     </div>

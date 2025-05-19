@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { Form, Input, Button, Table, message, Typography, Card, Layout } from 'antd';
+import { Form, Input, Button, Table, message, Typography, Card, Layout, Upload } from 'antd';
+import { UploadOutlined } from '@ant-design/icons';
 import axios from 'axios';
 
 const { Title } = Typography;
@@ -24,7 +25,15 @@ const DivisionManagement = () => {
 
   const handleCreateDivision = async (values) => {
     try {
-      const response = await axios.post('https://navy-quiz.onrender.com/api/divisions', values);
+      const formData = new FormData();
+      formData.append('name', values.name);
+      if (values.image && values.image[0]) {
+        formData.append('image', values.image[0].originFileObj);
+      }
+
+      const response = await axios.post('https://navy-quiz.onrender.com/api/divisions', formData, {
+        headers: { 'Content-Type': 'multipart/form-data' },
+      });
       message.success('Division created successfully');
       form.resetFields();
       fetchDivisions();
@@ -45,12 +54,30 @@ const DivisionManagement = () => {
       render: (text) => <span style={{ fontFamily: 'Hind, sans-serif' }}>{text}</span>,
     },
     {
+      title: '🖼️ Image',
+      dataIndex: 'image',
+      key: 'image',
+      render: (image) =>
+        image ? (
+          <img src={image} alt="division" style={{ width: '50px', height: '50px', objectFit: 'cover', borderRadius: '4px' }} />
+        ) : (
+          <span>No Image</span>
+        ),
+    },
+    {
       title: '🗓️ Created At',
       dataIndex: 'createdAt',
       key: 'createdAt',
       render: (text) => new Date(text).toLocaleDateString(),
     },
   ];
+
+  const normFile = (e) => {
+    if (Array.isArray(e)) {
+      return e;
+    }
+    return e && e.fileList;
+  };
 
   return (
     <Layout style={{ minHeight: '100vh', backgroundColor: '#f0f2f5' }}>
@@ -78,7 +105,23 @@ const DivisionManagement = () => {
             >
               <Input placeholder="e.g., सूचना प्रौद्योगिकी (IT)" />
             </Form.Item>
-            <Button type="primary" htmlType="submit" loading={loading} style={{ backgroundColor: '#2e7d32', borderColor: '#2e7d32' }}>
+            <Form.Item
+              name="image"
+              label={<span style={{ fontFamily: 'Hind, sans-serif' }}>Division Image</span>}
+              valuePropName="fileList"
+              getValueFromEvent={normFile}
+              rules={[{ required: false }]}
+            >
+              <Upload name="image" listType="picture" maxCount={1} beforeUpload={() => false}>
+                <Button icon={<UploadOutlined />}>Upload Image (JPEG/PNG/GIF, max 5MB)</Button>
+              </Upload>
+            </Form.Item>
+            <Button
+              type="primary"
+              htmlType="submit"
+              loading={loading}
+              style={{ backgroundColor: '#2e7d32', borderColor: '#2e7d32' }}
+            >
               Create Division
             </Button>
           </Form>
