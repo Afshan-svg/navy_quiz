@@ -1,9 +1,9 @@
 import express from 'express';
-import { getDivisions, createDivision } from '../controllers/divisionController.js';
+import { getDivisions, createDivision, uploadMiddleware } from '../controllers/divisionController.js';
 
 const divisionRoutes = express.Router();
 
 divisionRoutes.get('/', getDivisions);
-divisionRoutes.post('/', createDivision);
+divisionRoutes.post('/', uploadMiddleware, createDivision);
 
 export default divisionRoutes;

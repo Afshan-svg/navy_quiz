@@ -1,3 +1,4 @@
+import mongoose from 'mongoose';
 import User from '../models/userModel.js';
 
 export const createUser = async (req, res) => {
@@ -61,6 +62,27 @@ export const updateScore = async (req, res) => {
       }
   
       res.json({ message: 'Score updated', user });
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ message: 'Server error' });
+    }
+  };
+
+  export const deleteUser = async (req, res) => {
+    try {
+      const { id } = req.params;
+
+      if (!mongoose.Types.ObjectId.isValid(id)) {
+        return res.status(400).json({ message: 'Invalid user ID' });
+      }
+  
+      const user = await User.findByIdAndDelete(id);
+  
+      if (!user) {
+        return res.status(404).json({ message: 'User not found' });
+      }
+  
+      res.status(200).json({ message: 'User deleted successfully' });
     } catch (error) {
       console.error(error);
       res.status(500).json({ message: 'Server error' });
